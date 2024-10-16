@@ -1,0 +1,16 @@
+mat-checkbox {
+  &.auth-check {
+    &.mat-mdc-checkbox {
+      .mdc-checkbox__background {
+        border-radius: 10px !important;
+      }
+    }
+    &.mat-mdc-checkbox-checked {
+      .mdc-checkbox__background {
+        border-radius: 10px !important;
+        background-color: #55d500 !important;
+        border-color: #61e00c !important;
+      }
+    }
+  }
+}

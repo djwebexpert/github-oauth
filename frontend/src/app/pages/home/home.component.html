@@ -1,0 +1,61 @@
+<div class="main-container-wrapper">
+  <mat-accordion class="github-login-card">
+    <mat-expansion-panel hideToggle> </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <img
+            src="../../../assets/Icons/github-logo.png"
+            width="30px"
+            height="30px"
+          />
+          <span class="logo-text"> Github </span>
+          <ng-container *ngIf="isAuthConnect">
+            <mat-checkbox
+              class="auth-check"
+              [checked]="true"
+              [color]="'primary'"
+            >
+            </mat-checkbox>
+            <mat-icon>history</mat-icon>
+          </ng-container>
+        </mat-panel-title>
+        <mat-panel-description *ngIf="isAuthConnect">
+          <span>
+            {{ userInfo.username }}: Last Synced:
+            {{ userInfo.lastSync | date : "MMM d, y, h:mm:ss a" }}
+          </span>
+          <p class="sync-type-flex">Sync Type: {{ userInfo.syncType }}</p>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="accordion-description" *ngIf="!isAuthConnect">
+        <div class="login-button">
+
+          <button
+            mat-raised-button
+            color="primary"
+            class="blue-button"
+            (click)="redirectToGithub()"
+            [disabled]="loading"
+          >
+            {{ loading ? "Please wait..." : "Connect" }}
+          </button>
+          <h2 class="connect-text">Connect Sredio to Github</h2>
+        </div>
+      </div>
+
+      <mat-action-row *ngIf="isAuthConnect">
+        <button
+          mat-raised-button
+          color="primary"
+          class="blue-button"
+          (click)="logoutFromGithub()"
+        >
+          <span>Remove</span>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

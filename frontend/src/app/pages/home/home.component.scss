@@ -1,0 +1,28 @@
+.main-container-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+
+  .github-login-card {
+    padding: 30px;
+    max-width: 1400px;
+    width: 100%;
+  }
+  .accordion-description {
+    text-align: center;
+  }
+  .connect-text {
+    color: #3d4cbc;
+    font-size: 26px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .logo-text {
+    margin-left: 5px;
+  }
+  .login-button {
+    margin-top: 30px;
+  }
+}
