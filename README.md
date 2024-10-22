@@ -1,6 +1,8 @@
 # GitHub OAuth2 Integration
 
-### Preview link - [Click here](https://www.loom.com/share/455e60248b794031b2f400ce33a5367f?sid=edeabb27-c86d-48b8-9054-669b7f2a60a5)
+### Preview link Task 1- [Click here](https://www.loom.com/share/455e60248b794031b2f400ce33a5367f?sid=edeabb27-c86d-48b8-9054-669b7f2a60a5)
+
+### Preview link Task 2- [Click here](https://www.loom.com/share/e748f74d58934e5eb2fff692f9b93085?sid=c3c4e7bc-d613-4555-8eb2-9a6e8d83a331)
 
 
 # Frontend
