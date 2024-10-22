@@ -25,4 +25,36 @@
   .login-button {
     margin-top: 30px;
   }
+  .grid-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    h6 {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      span {
+        margin-right: 6px;
+      }
+    }
+  }
+  .grid-layout,
+  .detail-grid {
+    display: flex;
+    width: 100%;
+    height: 250px;
+    margin-top: 15px;
+  }
+  .detail-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .repo-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 }

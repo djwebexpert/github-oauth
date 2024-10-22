@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GithubAuthService } from 'src/app/services/github-auth.service';
 import { environment } from 'src/environments/environment';
+import { ColDef } from '@ag-grid-community/core';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,33 @@ export class HomeComponent implements OnInit {
   userInfo = {
     lastSync: '',
     username: '',
+    name: '',
     syncType: '',
   };
   loading: boolean = false;
+  defaultColDef: any = {
+    flex: 1,
+    resizable: true,
+  };
+  gridApi: any;
+  selectedGridData: any = null;
+  colDefs: ColDef[] = [
+    { field: 'id' },
+    { field: 'name' },
+    { field: 'link', cellRenderer: this.createHyperLink.bind(this) },
+    { field: 'slug' },
+    { field: 'included', checkboxSelection: true },
+  ];
+  rowData = [];
+  detailRowData: any = [];
+  detailColDefs: ColDef[] = [
+    { field: 'userId' },
+    { field: 'user' },
+    { field: 'commits' },
+    { field: 'pullRequests' },
+    { field: 'issues' },
+  ];
+
   constructor(
     private githubAuthService: GithubAuthService,
     private activatedRoute: ActivatedRoute,
@@ -37,14 +62,44 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  onSelectionChanged(event: any) {
+    this.selectedGridData = this.gridApi.getSelectedRows()[0];
+    const acccessToken = localStorage.getItem('acccessToken') as string;
+
+    this.githubAuthService
+      .getRepoDetail(this.selectedGridData.slug, acccessToken)
+      .subscribe({
+        next: (response: any) => {
+          if (!response) {
+            return;
+          }
+          this.detailRowData = response;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+  }
+
+  createHyperLink(params: any): any {
+    if (!params.data) {
+      return;
+    }
+    const spanElement = document.createElement('span');
+    spanElement.innerHTML = `<a target="_blank" href="${params.value}">Visit Link</a> `;
+    return spanElement;
+  }
+
   getLoggedUserDetails(userId: string) {
     this.githubAuthService.getUserDetails(userId).subscribe({
       next: (response) => {
         this.userInfo = {
-          lastSync: response.createdAt,
-          username: response.name,
+          lastSync: response.created_at,
+          username: response.login,
+          name: response.name,
           syncType: 'full',
         };
+        this.getOrgsData();
       },
       error: () => {},
     });
@@ -65,6 +120,7 @@ export class HomeComponent implements OnInit {
           return;
         }
         localStorage.setItem('userId', response.user._id);
+        localStorage.setItem('acccessToken', response.user.access_token);
         this.loading = false;
         this.isAuthConnect = true;
         this.getLoggedUserDetails(response.user._id);
@@ -85,10 +141,45 @@ export class HomeComponent implements OnInit {
           }
           this.isAuthConnect = false;
           localStorage.removeItem('userId');
+          localStorage.removeItem('acccessToken');
           this.router.navigateByUrl('/');
         },
-        error: () => {},
+        error: (error) => {
+          console.error(error);
+        },
       });
     }
+  }
+
+  onGridReady(params: any) {
+    if (!this.isAuthConnect) {
+      return;
+    }
+    this.gridApi = params.api;
+  }
+
+  async getOrgsData() {
+    const acccessToken = localStorage.getItem('acccessToken') as string;
+
+    this.githubAuthService
+      .getOrgsData(this.userInfo.username, acccessToken)
+      .subscribe({
+        next: (response) => {
+          if (!response) {
+            return;
+          }
+          this.rowData = response.map((repo: any) => {
+            return {
+              id: repo.id,
+              name: repo.name,
+              link: repo.html_url,
+              slug: repo.full_name,
+            };
+          });
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
 }

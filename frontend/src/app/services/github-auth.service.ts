@@ -20,4 +20,19 @@ export class GithubAuthService {
   getUserDetails(payload: string): Observable<any> {
     return this.http.get(`${environment.baseURL}/user/${payload}`);
   }
+
+  getOrgsData(username: string, acccessToken:string): Observable<any> {
+    return this.http.get(`${environment.baseURL}/user/${username}/orgs`, { headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${acccessToken}`
+    } });
+  }
+
+  getRepoDetail(slug: string, acccessToken:string): Observable<any> {
+    return this.http.post(`${environment.baseURL}/user/repoDetail`,{slug}, { headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${acccessToken}`
+    } });
+  }
+
 }

@@ -22,7 +22,7 @@
         </mat-panel-title>
         <mat-panel-description *ngIf="isAuthConnect">
           <span>
-            {{ userInfo.username }}: Last Synced:
+            {{ userInfo.name }}: Last Synced:
             {{ userInfo.lastSync | date : "MMM d, y, h:mm:ss a" }}
           </span>
           <p class="sync-type-flex">Sync Type: {{ userInfo.syncType }}</p>
@@ -31,7 +31,7 @@
 
       <div class="accordion-description" *ngIf="!isAuthConnect">
         <div class="login-button">
-
+          
           <button
             mat-raised-button
             color="primary"
@@ -46,15 +46,52 @@
       </div>
 
       <mat-action-row *ngIf="isAuthConnect">
-        <button
-          mat-raised-button
-          color="primary"
-          class="blue-button"
-          (click)="logoutFromGithub()"
-        >
-          <span>Remove</span>
-          <mat-icon>delete</mat-icon>
-        </button>
+        <div class="repo-details">
+          <div class="grid-info">
+            <h6><span>Github Projects</span> <mat-icon>download</mat-icon></h6>
+            <button
+              mat-raised-button
+              color="primary"
+              class="blue-button"
+              (click)="logoutFromGithub()"
+            >
+              <span>Remove</span>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <div class="grid-layout">
+            <ag-grid-angular
+              style="width: 100%; height: 100%"
+              class="ag-theme-alpine"
+              [defaultColDef]="defaultColDef"
+              [rowData]="rowData"
+              [columnDefs]="colDefs"
+              rowSelection="single"
+              #agGrid
+              (gridReady)="onGridReady($event)"
+              (selectionChanged)="onSelectionChanged($event)"
+            ></ag-grid-angular>
+          </div>
+
+          <div class="detail-grid" *ngIf="selectedGridData">
+            <div class="grid-info">
+              <h6>
+                <span>{{selectedGridData?.slug}}</span>
+              </h6>
+            </div>
+            <div class="grid-layout">
+              <ag-grid-angular
+                style="width: 100%; height: 100%"
+                class="ag-theme-alpine"
+                [defaultColDef]="defaultColDef"
+                [rowData]="detailRowData"
+                [columnDefs]="detailColDefs"
+                rowSelection="single"
+                #agDetailGrid
+              ></ag-grid-angular>
+            </div>
+          </div>
+        </div>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

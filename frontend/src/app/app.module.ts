@@ -12,6 +12,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { AgGridModule } from '@ag-grid-community/angular';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+import { ModuleRegistry } from '@ag-grid-community/core';
+
+ModuleRegistry.registerModules([
+  ClientSideRowModelModule,
+]);
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -25,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatCheckboxModule,
     MatButtonModule,
     HttpClientModule,
+    AgGridModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
