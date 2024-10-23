@@ -1,0 +1,43 @@
+.app-sidebar {
+  padding: 15px;
+  max-width: 260px;
+  height: calc(100vh - 84px);
+  overflow-x: hidden;
+  .menu-items {
+    &.mt-5 {
+      margin-top: 5px;
+    }
+    ul {
+      padding: 0;
+      margin: 0;
+      li {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 4px;
+        .menu-item {
+          padding: 0px 10px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          border-radius: 6px;
+          transition: 0.3s all;
+          height: 40px;
+          text-decoration: none;
+          .mat-icon {
+            margin-right: 4px;
+            font-size: 20px;
+          }
+          &:hover {
+            background-color: #e9f2ff;
+            span {
+              color: #0c66e4;
+            }
+            .mat-icon {
+              color: #0c66e4;
+            }
+          }
+        }
+      }
+    }
+  }
+}

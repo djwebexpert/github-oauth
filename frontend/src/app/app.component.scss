@@ -1,0 +1,52 @@
+.app {
+    &-layout {
+      display: flex;
+      flex-direction: column;
+    }
+    &-page-content {
+      margin-top: 64px;
+      .sidebar-toggle-btn {
+        width: 24px;
+        height: 24px;
+        background-color: #fff;
+        border-radius: 50%;
+        border: 0;
+        padding: 0;
+        top: 50px;
+        left: 268px;
+        position: absolute;
+        box-shadow: rgba(9, 30, 66, 0.08) 0px 0px 0px 1px,
+          rgba(9, 30, 66, 0.08) 0px 2px 4px 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 9;
+        transition: 0.3s all;
+        &:hover {
+          background-color: #0c66e4;
+          .mat-icon {
+            color: #fff;
+          }
+        }
+        .mat-icon {
+          font-size: 20px;
+          color: #44546f;
+          position: relative;
+          top: 2px;
+        }
+        &.show {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+  
+      .page-content {
+        flex: 1;
+        padding: 30px;
+        height: calc(100vh - 124px);
+        overflow-x: hidden;
+      }
+    }
+  }
+  

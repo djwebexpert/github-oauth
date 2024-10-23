@@ -1,4 +1,34 @@
-<router-outlet></router-outlet>
-
-
-
+<div class="app-layout">
+    <app-header></app-header>
+    <div class="app-page-content">
+      <mat-drawer-container
+        class="sidebar-container"
+        [ngClass]="{ 'is-open': isSidebarOpen, 'sidebar-hover': isHoverSidebar }"
+        [hasBackdrop]="false"
+      >
+        <mat-drawer opened class="sidebar-drawer" #drawer [mode]="'side'">
+          <button
+            [ngClass]="{ show: isHoverSidebar }"
+            class="sidebar-toggle-btn"
+            (click)="toggleSidebar()"
+          >
+            <mat-icon class="material-symbols-sharp">
+              {{ isSidebarOpen ? "chevron_left" : "chevron_right" }}
+            </mat-icon>
+          </button>
+          <app-sidebar
+            (mouseover)="windowWidth > 992 && sidebarHoverEvent($event)"
+            (mouseout)="windowWidth > 992 && sidebarHoverEvent($event)"
+            (click)="windowWidth < 991 && openSidebar()"
+            cdkscrollable
+          ></app-sidebar>
+        </mat-drawer>
+        <mat-drawer-content>
+          <div class="page-content">
+            <router-outlet></router-outlet>
+          </div>
+        </mat-drawer-content>
+      </mat-drawer-container>
+    </div>
+  </div>
+  

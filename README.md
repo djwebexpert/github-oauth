@@ -4,6 +4,8 @@
 
 ### Preview link Task 2- [Click here](https://www.loom.com/share/e748f74d58934e5eb2fff692f9b93085?sid=c3c4e7bc-d613-4555-8eb2-9a6e8d83a331)
 
+### Preview link Task 3- [Click here](https://www.loom.com/share/31e7f7bff2414f4fbc78d3b3f9e05d1f?sid=9a1db870-fb8e-46f7-adb7-4b855e271af7)
+
 
 # Frontend
 
